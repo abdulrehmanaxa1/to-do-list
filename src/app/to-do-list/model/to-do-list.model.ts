@@ -1,5 +1,5 @@
 export interface ToDoListModel{
-    id: string;
+    id: number;
     FirstName: string;
     LastName: string;
     UserName: string;

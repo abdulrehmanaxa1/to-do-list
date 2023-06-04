@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddUpdateUserComponent } from './add-update-user/add-update-user.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToDoListModel } from './model/to-do-list.model';
-import { ToDoService } from './service/to-do.service';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { ToDoListService } from './service/to-do-list.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -23,21 +24,27 @@ export class ToDoListComponent implements OnInit{
   
   constructor(
     private dialog: MatDialog,
-    private todoService: ToDoService,
+    private todoService: ToDoListService,
     private fb: FormBuilder
     ){}
 
   ngOnInit(): void {
     this.createForm();
+    this.getData();
   }
 
   createForm(){
     this.listForm = this.fb.group({
-      email: [null, Validators.email]
+      Email: [null, Validators.email]
     })
   }
 
-  getData(){}
+  getData(){
+    this.todoService.getUsers().subscribe((res)=>{
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+    })
+  }
 
   addUserUpdateDialog(user=null){
   

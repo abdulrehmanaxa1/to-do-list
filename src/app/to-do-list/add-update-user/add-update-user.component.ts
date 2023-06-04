@@ -6,9 +6,13 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 import { ToDoListModel } from '@to-do-list/model/to-do-list.model';
-import { ToDoService } from '@to-do-list/service/to-do.service';
+import { ToDoListService } from '@to-do-list/service/to-do-list.service';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ToastrService } from 'ngx-toastr';
+import { addData, updateData } from 'src/app/state/to-do.action';
+import { ToDoState } from 'src/app/state/to-do.state';
 
 @Component({
   selector: 'app-add-update-user',
@@ -19,14 +23,14 @@ export class AddUpdateUserComponent implements OnInit {
   addUpdateForm!: FormGroup;
   title: string = 'Add User';
   // imgStr!: any;
-  toDoList!: ToDoListModel;
+  toDoList: any = {};
 
   constructor(
     public dialogRef: MatDialogRef<AddUpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ToDoListModel,
-    private todoService: ToDoService,
     private fb: FormBuilder,
     private toastr: ToastrService,
+    private todoListService: ToDoListService
   ) {}
 
   ngOnInit(): void {
@@ -49,17 +53,41 @@ export class AddUpdateUserComponent implements OnInit {
   }
 
   addUpdateUser() {
+    debugger
     if (this.addUpdateForm.invalid) {
       return;
     }
 
     let date = new Date();
 
-    this.toDoList = Object.assign(this.toDoList, this.addUpdateForm.value());
+    this.toDoList = Object.assign(this.toDoList, this.addUpdateForm.value);
     if(!this.toDoList.id){
       this.toDoList.CreatedAt = date.toISOString();
+      this.toDoList.UpdatedAt = this.toDoList.CreatedAt;
+
+      delete this.toDoList.id;
+      console.log(this.toDoList)
+      this.todoListService.addUser(this.toDoList).subscribe((res)=>{
+        if(res){
+          this.dialogRef.close(true)
+        }else{
+          this.toastr.error('Error in Adding User', 'Error!')
+        }
+      })
+
+    }else{
+      this.toDoList.UpdatedAt = date.toISOString();
+      this.todoListService.updateUser(this.toDoList).subscribe((res)=>{
+        if(res){
+          this.dialogRef.close(true)
+        }else{
+          this.toastr.error('Error in Adding User', 'Error!')
+        }
+      })
     }
-    this.toDoList.UpdatedAt = date.toISOString();
+    
+
+
   }
 
   close(res: any){
