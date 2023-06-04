@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header{
+    background-color: #CD1818;
+    color: white;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  /*td, th {
+    width: 25%;
+  }*/
+
+  mat-paginator{
+    width: 100%;
+  }

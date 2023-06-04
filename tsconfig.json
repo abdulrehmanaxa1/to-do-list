@@ -6,6 +6,7 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "@shared/*": ["src/app/shared/*"],
+      "@to-do-list/*": ["src/app/to-do-list/*"],
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,

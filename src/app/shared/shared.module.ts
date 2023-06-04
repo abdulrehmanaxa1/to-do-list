@@ -27,7 +27,7 @@ import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDialogModule} from "@angular/material/dialog";
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 @NgModule({
@@ -64,7 +64,8 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
     MatSliderModule,
     MatSlideToggleModule,
     MatDialogModule,
-    NgxIndexedDBModule
+    NgxIndexedDBModule,
+    MatPaginatorModule
   ],
   exports:[
     MatCommonModule,
@@ -91,7 +92,8 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
     MatSliderModule,
     MatSlideToggleModule,
     MatDialogModule,
-    NgxIndexedDBModule
+    NgxIndexedDBModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }

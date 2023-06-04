@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'to-do-list'},
-  { path: 'to-do-list', loadChildren: () => import('./to-do-list/to-do-list.module').then(m => m.ToDoListModule) }
+  { path: 'to-do-list', loadChildren: () => import('@to-do-list/to-do-list.module').then(m => m.ToDoListModule) }
 ];
 
 @NgModule({
