@@ -2,26 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-.header{
-    background-color: #CD1818;
-    color: white;
-    font-weight: bold;
-    padding-bottom: 5px;
+.header {
+  background-color: #cd1818;
+  color: white;
+  font-weight: bold;
+  padding-bottom: 5px;
 }
 
 table {
-    width: 100%;
-  }
-  
-  .mat-mdc-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  /*td, th {
+  width: 100%;
+}
+
+.mdc-data-table__header-cell{
+  background-color: #cd1818 !important;
+  color: white;
+}
+
+.mat-mdc-raised-button{
+  background-color: #cd1818 !important;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+/*td, th {
     width: 25%;
   }*/
 
-  mat-paginator{
-    width: 100%;
-  }
+mat-paginator {
+  width: 100%;
+}

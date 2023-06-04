@@ -26,8 +26,27 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDialogModule} from "@angular/material/dialog";
-import { NgxIndexedDBModule } from 'ngx-indexed-db';
+import { NgxIndexedDBModule, DBConfig } from 'ngx-indexed-db';
 import {MatPaginatorModule} from '@angular/material/paginator';
+
+const dbConfig : DBConfig = {
+  name: 'todoListDB',
+  version: 1,
+  objectStoresMeta: [{
+    store: 'users',
+    storeConfig: { keyPath: 'id', autoIncrement: true },
+    storeSchema: [
+      { name: 'FirstName', keypath: 'FirstName', options: { unique: false } },
+      { name: 'LastName', keypath: 'LastName', options: { unique: false } },
+      { name: 'UserName', keypath: 'UserName', options: { unique: true } },
+      { name: 'Email', keypath: 'Email', options: { unique: true } },
+      { name: 'PhoneNumber', keypath: 'PhoneNumber', options: { unique: false } },
+      { name: 'Address', keypath: 'Address', options: { unique: false } },
+      { name: 'Image', keypath: 'Image', options: { unique: false } },
+    ]
+  }]
+
+};
 
 
 @NgModule({
@@ -64,7 +83,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatSliderModule,
     MatSlideToggleModule,
     MatDialogModule,
-    NgxIndexedDBModule,
+    NgxIndexedDBModule.forRoot(dbConfig),
     MatPaginatorModule
   ],
   exports:[
@@ -72,6 +91,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatButtonModule,
     MatTableModule,
     MatFormFieldModule,
+    MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
     MatCardModule,

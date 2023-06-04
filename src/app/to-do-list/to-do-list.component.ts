@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddUpdateUserComponent } from './add-update-user/add-update-user.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToDoListModel } from './model/to-do-list.model';
@@ -39,7 +39,14 @@ export class ToDoListComponent implements OnInit{
 
   getData(){}
 
-  addUserDialog(){
-    this.dialog.open(AddUpdateUserComponent)
+  addUserUpdateDialog(user=null){
+  
+    const dialogRef = this.dialog.open(AddUpdateUserComponent, {data: user, width: '400px',height: '600px'})
+
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.getData();
+      }
+    })
   }
 }

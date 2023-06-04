@@ -1,9 +1,12 @@
 export interface ToDoListModel{
-    FirstName: String;
-    LastName: String;
-    UserName: String;
-    Email: String;
-    PhoneNumber: String | Number;
-    Image: String;
-    Address: String;
+    id: string;
+    FirstName: string;
+    LastName: string;
+    UserName: string;
+    Email: string;
+    PhoneNumber: string;
+    // Image: string;
+    Address: string;
+    CreatedAt: string;
+    UpdatedAt: string;
 }
