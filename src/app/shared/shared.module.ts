@@ -26,6 +26,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatDialogModule} from "@angular/material/dialog";
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
 
 
 
@@ -62,7 +63,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatInputModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxIndexedDBModule
   ],
   exports:[
     MatCommonModule,
@@ -88,7 +90,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     HttpClientModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxIndexedDBModule
   ]
 })
 export class SharedModule { }
