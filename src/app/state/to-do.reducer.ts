@@ -70,5 +70,21 @@ export const ToDoReducer = createReducer(
       ...state,
       loading: false,
       error: error
-    }))
+    })),
+    on(ToDoActions.getDataByEmail, (state) => ({
+        ...state,
+        loading: true,
+        error: null
+      })),
+      on(ToDoActions.getDataByEmailSuccess, (state, { data }) => ({
+        ...state,
+        data: data,
+        loading: false,
+        error: null
+      })),
+      on(ToDoActions.getDataByEmailFailure, (state, { error }) => ({
+        ...state,
+        loading: false,
+        error: error
+      }))
   );

@@ -7,6 +7,8 @@ import { ToDoListModel } from './model/to-do-list.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { ToDoListService } from './service/to-do-list.service';
+import { ToastrService } from 'ngx-toastr';
+import { ViewComponentComponent } from './view-component/view-component.component';
 
 @Component({
   selector: 'app-to-do-list',
@@ -16,6 +18,7 @@ import { ToDoListService } from './service/to-do-list.service';
 export class ToDoListComponent implements OnInit{
 
   listForm !: FormGroup;
+  toDoList!: ToDoListModel[];
 
   displayedColumns = ['first', 'last','user', 'email', 'phone', 'address', 'actions'];
 
@@ -25,7 +28,8 @@ export class ToDoListComponent implements OnInit{
   constructor(
     private dialog: MatDialog,
     private todoService: ToDoListService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService,
     ){}
 
   ngOnInit(): void {
@@ -39,11 +43,25 @@ export class ToDoListComponent implements OnInit{
     })
   }
 
+  
   getData(){
-    this.todoService.getUsers().subscribe((res)=>{
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-    })
+    let email = this.listForm.controls['Email'].value
+    if(!email){
+      this.todoService.getUsers().subscribe((res)=>{
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+      })
+    }else{
+      this.todoService.getDataByEmail(email).subscribe((res)=>{
+        this.toDoList = res;
+        console.log(res);
+        this.dataSource = new MatTableDataSource(this.toDoList);
+        this.dataSource.paginator = this?.paginator;
+      })
+      this.listForm.markAsUntouched();
+      this.listForm.markAsPristine();
+    }
+  
   }
 
   addUserUpdateDialog(user=null){
@@ -56,4 +74,18 @@ export class ToDoListComponent implements OnInit{
       }
     })
   }
+
+  viewData(user: ToDoListModel){
+    const dialogRef = this.dialog.open(ViewComponentComponent, {data: user, width: '400px',height: '600px'})
+  }
+
+  deleteData(user: ToDoListModel){
+    this.todoService.deleteUser(Number(user.id)).subscribe(()=>{
+      this.toastr.success('User Deleted Successfully!', 'Success!');
+      this.getData()
+    },
+    error =>{ this.toastr.error(error, 'Error!')}
+    )
+  }
+
 }

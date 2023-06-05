@@ -20,3 +20,8 @@ export const updateDataFailure = createAction('Update Data Failure', props<{ err
 export const deleteData = createAction('Delete Data', props<{ id: number }>());
 export const deleteDataSuccess = createAction('Delete Data Success');
 export const deleteDataFailure = createAction('Delete Data Failure', props<{ error: any }>());
+
+// Get Data By Email
+export const getDataByEmail = createAction('Get Data By Email', props<{ email: string }>());
+export const getDataByEmailSuccess = createAction('Get Data By Email Success', props<{ data: ToDoListModel[] }>());
+export const getDataByEmailFailure = createAction('Get Data By Email Failure', props<{ error: any }>());

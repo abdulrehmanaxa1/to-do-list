@@ -56,4 +56,16 @@ export class UserEffects {
       )
     )
   );
+
+  getDataByEmail$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(ToDoActions.getDataByEmail),
+    switchMap(({ email }) =>
+      this.todoListService.getDataByEmail(email).pipe(
+        map((data) => ToDoActions.getDataByEmailSuccess({ data })),
+        catchError((error) => of(ToDoActions.getDataByEmailFailure({ error })))
+      )
+    )
+  )
+);
 }

@@ -28,4 +28,8 @@ export class ToDoListService {
     return this.dbService.delete(this.storeName, id);
   }
 
+  getDataByEmail(email: string): Observable<ToDoListModel[]> {
+    return this.dbService.getByIndex(this.storeName, 'Email', email);
+  }
+
 }

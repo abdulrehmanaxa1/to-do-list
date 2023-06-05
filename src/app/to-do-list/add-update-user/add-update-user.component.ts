@@ -37,6 +37,7 @@ export class AddUpdateUserComponent implements OnInit {
     this.createForm();
     if (this.data) {
       this.title = 'Update User';
+      this.addUpdateForm.patchValue(this.data)
     }
   }
 
@@ -49,6 +50,8 @@ export class AddUpdateUserComponent implements OnInit {
       Email: [null, [Validators.required, Validators.email]],
       PhoneNumber: [null, Validators.required],
       Address: [null, Validators.required],
+      CreatedAt: [null],
+      UpdatedAt: [null],
     });
   }
 
@@ -77,6 +80,7 @@ export class AddUpdateUserComponent implements OnInit {
 
     }else{
       this.toDoList.UpdatedAt = date.toISOString();
+      this.toDoList.id = Number(this.toDoList.id);
       this.todoListService.updateUser(this.toDoList).subscribe((res)=>{
         if(res){
           this.dialogRef.close(true)
